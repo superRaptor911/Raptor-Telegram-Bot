@@ -6,20 +6,20 @@ GLOBAL_STATE = {}
 # state = {username, states[], time}
 
 # Get State
-def getState(username : str, level : int = 0) -> str:
+def getState(username : str, level : int = 0):
     if username in GLOBAL_STATE:
         states = GLOBAL_STATE[username]["states"]
         if len(states) > level:
             return states[level]
-    return ""
+    return False
 
 
-def lastState(username : str) -> str:
+def lastState(username : str):
     if username in GLOBAL_STATE:
         states = GLOBAL_STATE[username]["states"]
         if len(states) > 0:
             return states[-1]
-    return ""
+    return False
 
 
 def createUserState(username: str):
@@ -30,7 +30,7 @@ def createUserState(username: str):
         }
 
 
-def pushState(username: str, state: str):
+def pushState(username: str, state):
     if not (username in GLOBAL_STATE):
         createUserState(username)
     GLOBAL_STATE[username]["states"].append(state)
@@ -40,3 +40,11 @@ def popState(username: str, count = 1):
     if username in GLOBAL_STATE:
         GLOBAL_STATE[username]["states"] = GLOBAL_STATE[username]["states"][0:-count]
 
+
+def changeMenuNow(username, update, context):
+    update.message.text = ""
+    menu = lastState(username)
+    if menu:
+        menu(update, context)
+    else:
+        print("Faled To change Menu for " + username)

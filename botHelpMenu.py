@@ -27,14 +27,13 @@ def helpMessageMenu(update, context):
     elif textReceived == "0":
         update.message.reply_text(listCommands())
     elif textReceived == "1":
-        State.pushState(username, "about")
-        changeMenu(State.lastState(username), update, context)
+        State.pushState(username, aboutBotMenu)
+        State.changeMenuNow(username, update, context)
     elif textReceived == "4":
         State.popState(username, 2)
     else:
         update.message.reply_text('Invalid Option')
         update.message.reply_text(text)
-
 
 
 def aboutBotMenu(update, context):
@@ -53,10 +52,10 @@ def aboutBotMenu(update, context):
     elif textReceived == "0":
         update.message.reply_text('I was created using python3 and im currently running in Raptor\'s laptop')
         State.popState(username)
-        changeMenu(State.lastState(username), update, context)
+        State.changeMenuNow(username, update, context)
     elif textReceived == "1":
         State.popState(username)
-        changeMenu(State.lastState(username), update, context)
+        State.changeMenuNow(username, update, context)
     elif textReceived == "2":
         State.popState(username, 2)
     else:
@@ -65,20 +64,3 @@ def aboutBotMenu(update, context):
 
 
 
-#----------------------------------------------
-Menu_config = {
-        "help" : helpMessageMenu,
-        "about" : aboutBotMenu,
-    }
-
-
-def changeMenu(menuName, update, context):
-    update.message.text = ""
-    Menu_config[menuName](update, context)
-
-def controller(update, context):
-    textReceived : str = update.message.text
-    username = update.message.from_user.username
-
-    state = State.lastState(username)
-    Menu_config[state](update, context)

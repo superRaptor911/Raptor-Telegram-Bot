@@ -3,18 +3,11 @@ from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from datetime import datetime
 import State
 import logging
-import botHelp
+import botHelpMenu
 import GameMenu
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-
-
-State_config = {
-        "help" : botHelp.controller,
-        "gameMenu" : GameMenu.controller,
-    }
-
 
 
 # function to handle the /start command
@@ -38,18 +31,22 @@ def text(update : Update, context):
     text_received : str = update.message.text
     username = update.message.from_user.username
 
-    if State.lastState(username) == "":
+    if State.lastState(username) == False:
         if text_received == "bot help":
-            State.pushState(username, "help")
+            State.pushState(username, botHelpMenu.helpMessageMenu)
             update.message.text = ""
         elif text_received == "bot games":
-            State.pushState(username, "gameMenu")
+            State.pushState(username, GameMenu.mainMenu)
             update.message.text = ""
         else:
             return
 
-    state = State.getState(username, 0)
-    State_config[state](update, context)
+    # state = State.getState(username, 0)
+    state = State.lastState(username)
+    if state != False:
+        state(update, context)
+    else:
+        print("State not found")
 
 
         # update.message.reply_text(f'{reply_text}')

@@ -7,15 +7,15 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +42 main.py
-badd +42 State.py
-badd +59 botHelp.py
+badd +6 main.py
+badd +45 State.py
 badd +70 StonePaperScissors.py
-badd +2 GameMenu.py
+badd +29 GameMenu.py
+badd +3 botHelpMenu.py
 argglobal
 %argdel
 $argadd main.py
-edit GameMenu.py
+edit main.py
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -25,11 +25,11 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-let s:l = 2 - ((1 * winheight(0) + 21) / 43)
+let s:l = 6 - ((5 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2
+6
 normal! 0
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

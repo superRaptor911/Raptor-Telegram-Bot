@@ -4,6 +4,7 @@ from datetime import datetime
 import State
 import logging
 import botHelpMenu
+import botConfig
 from games import GameMenu
 from raptorTrading import coins
 
@@ -49,12 +50,8 @@ def text(update : Update, context):
         print("State not found")
 
 
-        # update.message.reply_text(f'{reply_text}')
-
-
 def main():
-    TOKEN = "1806495603:AAHOGGg9uwThVQLv6YRCeauKXIubIg2w-7M"
-    updater = Updater(TOKEN, use_context=True)
+    updater = Updater(botConfig.botTokkenId, use_context=True)
     dispatcher = updater.dispatcher
 
     # add handlers for start and help commands

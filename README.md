@@ -13,7 +13,7 @@
 pip install python-telegram-bot
 ```
 
-* I you you are running raptor bot for the first time, run `setup.sh`
+* I you are running raptor bot for the first time, run `setup.sh`
 
 ```
 ./setup.sh

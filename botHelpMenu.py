@@ -28,7 +28,7 @@ def helpMessageMenu(update, context):
         update.message.reply_text(listCommands())
     elif textReceived == "1":
         State.pushState(username, aboutBotMenu)
-        State.changeMenuNow(username, update, context)
+        State.changeMenuNow(update, context)
     elif textReceived == "2":
         update.message.reply_text('To Do')
     elif textReceived == "3":
@@ -56,10 +56,10 @@ def aboutBotMenu(update, context):
     elif textReceived == "0":
         update.message.reply_text('I was created using python3 and im currently running in Raptor\'s laptop')
         State.popState(username)
-        State.changeMenuNow(username, update, context)
+        State.changeMenuNow(update, context)
     elif textReceived == "1":
         State.popState(username)
-        State.changeMenuNow(username, update, context)
+        State.changeMenuNow(update, context)
     elif textReceived == "2":
         State.popAllStates(username)
     else:

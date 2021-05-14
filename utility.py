@@ -13,3 +13,18 @@ def readableValue(value : float) -> str:
 
     return finalValue
 
+def getLinesFromFile(path : str):
+    file1 = open(path, 'r')
+    arr = []
+
+    while True:
+        # Get next line from file
+        line = file1.readline()
+        # if line is empty
+        # end of file is reached
+        if not line:
+            break
+        arr.append(line.strip())
+
+    file1.close()
+    return arr

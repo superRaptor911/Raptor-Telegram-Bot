@@ -19,8 +19,9 @@ def start(update, context):
 
 # function to handle the /help command
 def help(update, context):
-    reply_keyboard = [['Boy', 'Girl', 'Other']]
-    update.message.reply_text('help command received', reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),)
+    # reply_keyboard = [['Boy', 'Girl', 'Other']]
+    # update.message.reply_text('help command received', reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True),)
+    update.message.reply_text('use \"bot help\"')
 
 
 # function to handle errors occured in the dispatcher 
@@ -29,7 +30,7 @@ def error(update, context):
 
 
 # function to handle normal text 
-def text(update : Update, context):
+def text(update, context):
     username = update.message.from_user.username
 
     if State.lastState(username) == False:
@@ -57,6 +58,7 @@ def main():
     # add handlers for start and help commands
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help))
+
 
     # add an handler for normal text (not commands)
     dispatcher.add_handler(MessageHandler(Filters.text, text))

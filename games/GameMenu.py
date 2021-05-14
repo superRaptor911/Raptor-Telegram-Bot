@@ -1,11 +1,13 @@
 import State
 from . import StonePaperScissors
+from . import guessTheWord
 
 def genMainMenuText() -> str:
     return '''Games
 
 1. Stone Paper Scissors
-2. Exit
+2. Guess The Word
+0. Exit
 '''
 
 def mainMenu(update, context):
@@ -18,8 +20,11 @@ def mainMenu(update, context):
         update.message.reply_text(genMainMenuText())
     elif textReceived == "1":
         State.pushState(username, StonePaperScissors.mainMenu)
-        State.changeMenuNow(username, update, context)
+        State.changeMenuNow(update, context)
     elif textReceived == "2":
+        State.pushState(username, guessTheWord.mainMenu)
+        State.changeMenuNow(update, context)
+    elif textReceived == "0":
         State.popState(username)
     else:
         update.message.reply_text('Wrong Input')

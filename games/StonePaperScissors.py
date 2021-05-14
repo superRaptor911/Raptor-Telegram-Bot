@@ -37,6 +37,7 @@ def mainMenu(update, context):
     if chatType != "private":
         update.message.reply_text('This game Can only be played in private chat 🌚')
         State.popState(username)
+        State.changeMenuNow(update, context)
         return
 
     if textReceived == "":
@@ -44,12 +45,12 @@ def mainMenu(update, context):
     elif textReceived == "1":
         startGame(update)
         State.pushState(username, gameLogic)
-        State.changeMenuNow(username, update, context)
+        State.changeMenuNow(update, context)
     elif textReceived == "2":
         update.message.reply_text('To DO')
     elif textReceived == "3":
         State.popState(username)
-        State.changeMenuNow(username, update, context)
+        State.changeMenuNow(update, context)
     else:
         update.message.reply_text('Wrong Input')
         update.message.reply_text(genMainMenuText())
@@ -99,7 +100,7 @@ def getUserInput(update, context):
     if not (textReceived in ["1", "2", "3"]):
         update.message.reply_text("Invalid option moron!")
         State.popState(username)
-        State.changeMenuNow(username, update, context)
+        State.changeMenuNow(update, context)
         return
 
     GAME_DATA["scores"][username]["userMove"] = int(textReceived)
@@ -110,7 +111,7 @@ def getUserInput(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=f"You : {userMove}\nBot: {botMove}")
     evalMoves(update, context)
     State.popState(username)
-    State.changeMenuNow(username, update, context)
+    State.changeMenuNow(update, context)
 
 
 def checkGameOver(username) -> bool:
@@ -138,5 +139,5 @@ def gameLogic(update, context):
     else:
         context.bot.send_message(chat_id=update.effective_chat.id, text=genGameOverText(username))
         State.popState(username)
-        State.changeMenuNow(username, update, context)
+        State.changeMenuNow(update, context)
 

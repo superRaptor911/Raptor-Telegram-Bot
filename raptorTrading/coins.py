@@ -25,7 +25,7 @@ def mainMenu(update, context):
         update.message.reply_text(genMainMenuText())
     elif textReceived == "1":
         # State.pushState(username, StonePaperScissors.mainMenu)
-        State.changeMenuNow(username, update, context)
+        State.changeMenuNow(update, context)
     elif textReceived == "2":
         State.popState(username)
     else:
@@ -35,7 +35,7 @@ def mainMenu(update, context):
 
 def coinPrice(update, context):
     username = update.message.from_user.username
-    update.message.reply_text('Please wait.. Fetching your request')
+    update.message.reply_text('Please wait.. Let me get latest values')
     serverResponse = requests.post("https://raptorinc.ga/server/coin.php", json = {"type" :"prices"})
 
     if serverResponse.status_code != 200:

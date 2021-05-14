@@ -46,7 +46,8 @@ def popAllStates(username: str):
         GLOBAL_STATE[username]["states"].clear()
 
 
-def changeMenuNow(username, update, context):
+def changeMenuNow(update, context):
+    username = update.message.from_user.username
     update.message.text = ""
     menu = lastState(username)
     if menu:

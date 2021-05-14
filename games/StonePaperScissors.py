@@ -33,6 +33,12 @@ def mainMenu(update, context):
     textReceived : str = update.message.text
     username = update.message.from_user.username
 
+    chatType = update.message.chat.type
+    if chatType != "private":
+        update.message.reply_text('This game Can only be played in private chat 🌚')
+        State.popState(username)
+        return
+
     if textReceived == "":
         update.message.reply_text(genMainMenuText())
     elif textReceived == "1":
@@ -125,10 +131,9 @@ def gameLogic(update, context):
 3. Scissor
 
 '''
-    output = heading
-    context.bot.send_message(chat_id=update.effective_chat.id, text=score)
-    update.message.reply_text(output)
     if not checkGameOver(username):
+        context.bot.send_message(chat_id=update.effective_chat.id, text=score)
+        update.message.reply_text(heading)
         State.pushState(username, getUserInput)
     else:
         context.bot.send_message(chat_id=update.effective_chat.id, text=genGameOverText(username))

@@ -7,11 +7,12 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +6 main.py
+badd +8 main.py
 badd +45 State.py
-badd +70 StonePaperScissors.py
-badd +29 GameMenu.py
 badd +3 botHelpMenu.py
+badd +11 games/GameMenu.py
+badd +121 games/StonePaperScissors.py
+badd +49 raptorTrading/coins.py
 argglobal
 %argdel
 $argadd main.py
@@ -24,13 +25,28 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe '2resize ' . ((&lines * 1 + 22) / 45)
+exe 'vert 2resize ' . ((&columns * 1 + 87) / 174)
+exe '3resize ' . ((&lines * 1 + 22) / 45)
+exe 'vert 3resize ' . ((&columns * 38 + 87) / 174)
 argglobal
-let s:l = 6 - ((5 * winheight(0) + 21) / 43)
+let s:l = 8 - ((7 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-6
-normal! 0
+8
+normal! 031|
+wincmd w
+argglobal
+enew
+wincmd w
+argglobal
+enew
+wincmd w
+exe '2resize ' . ((&lines * 1 + 22) / 45)
+exe 'vert 2resize ' . ((&columns * 1 + 87) / 174)
+exe '3resize ' . ((&lines * 1 + 22) / 45)
+exe 'vert 3resize ' . ((&columns * 38 + 87) / 174)
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

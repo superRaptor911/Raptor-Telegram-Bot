@@ -41,6 +41,11 @@ def popState(username: str, count = 1):
         GLOBAL_STATE[username]["states"] = GLOBAL_STATE[username]["states"][0:-count]
 
 
+def popAllStates(username: str):
+    if username in GLOBAL_STATE:
+        GLOBAL_STATE[username]["states"].clear()
+
+
 def changeMenuNow(username, update, context):
     update.message.text = ""
     menu = lastState(username)

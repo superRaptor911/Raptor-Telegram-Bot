@@ -4,7 +4,8 @@ from datetime import datetime
 import State
 import logging
 import botHelpMenu
-import GameMenu
+from games import GameMenu
+from raptorTrading import coins
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -28,16 +29,15 @@ def error(update, context):
 
 # function to handle normal text 
 def text(update : Update, context):
-    text_received : str = update.message.text
     username = update.message.from_user.username
 
     if State.lastState(username) == False:
-        if text_received == "bot help":
-            State.pushState(username, botHelpMenu.helpMessageMenu)
-            update.message.text = ""
-        elif text_received == "bot games":
-            State.pushState(username, GameMenu.mainMenu)
-            update.message.text = ""
+        if botHelpMenu.evalInput(update):
+            pass
+        elif GameMenu.evalInput(update):
+            pass
+        elif coins.evalInput(update):
+            pass
         else:
             return
 

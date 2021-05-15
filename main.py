@@ -32,6 +32,8 @@ def error(update, context):
 # function to handle normal text 
 def text(update, context):
     username = update.message.from_user.username
+    if username == None:
+        return
 
     if State.lastState(username) == False:
         if botHelpMenu.evalInput(update):

@@ -7,20 +7,20 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +27 main.py
+badd +39 main.py
 badd +56 State.py
-badd +62 botHelpMenu.py
-badd +24 games/GameMenu.py
+badd +77 botHelpMenu.py
+badd +54 games/GameMenu.py
 badd +111 games/StonePaperScissors.py
-badd +36 raptorTrading/coins.py
-badd +27 utility.py
-badd +105 games/guessTheWord.py
+badd +31 raptorTrading/coins.py
+badd +11 utility.py
+badd +18 games/guessTheWord.py
 badd +4 botConfig.py
 badd +3 .gitignore
 argglobal
 %argdel
 $argadd main.py
-edit games/guessTheWord.py
+edit botHelpMenu.py
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -30,12 +30,12 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-let s:l = 18 - ((14 * winheight(0) + 21) / 43)
+let s:l = 13 - ((12 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-18
-normal! 05|
+13
+normal! 020|
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

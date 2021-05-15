@@ -34,10 +34,23 @@ def mainMenu(update, context):
 def evalInput(update) -> bool:
     textReceived : str = update.message.text
     username = update.message.from_user.username
+
+    if len(textReceived) > 30:
+        return False
+
+    textReceived = textReceived.lower()
     # Eat input
     # update.message.text = ""
     if textReceived in ["bot games", "bot game", "games"]:
         State.pushState(username, mainMenu)
+        update.message.text = ""
+        return True
+    elif textReceived in ["word guess", "guess the word", "word guessing game"]:
+        State.pushState(username, guessTheWord.mainMenu)
+        update.message.text = ""
+        return True
+    elif textReceived in ["stone paper", "stone paper scissors", "stone paper scissor"]:
+        State.pushState(username, StonePaperScissors.mainMenu)
         update.message.text = ""
         return True
     return False

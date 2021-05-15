@@ -8,6 +8,9 @@ def readableValue(value : float) -> str:
     elif value > 1000:
         value /= 1000
         finalValue = str(round(value, 2)) + "K"
+    elif value < 0.01 and value > 0:
+        value *= 1000
+        finalValue = str(round(value, 2)) + "m"
     else:
         finalValue = str(round(value, 2))
 

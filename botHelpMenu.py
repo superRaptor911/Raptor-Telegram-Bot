@@ -2,10 +2,16 @@ import State
 
 # Help commands
 
-def listCommands() -> str:
+def genCommandList() -> str:
     return '''List of Commands
-* bot help  - Opens help menu
-* bot games - Opens game menu
+* help  - Opens help menu
+* commands  - Lists commands
+* about - Opens About menu
+* games - Opens game menu
+* word guess - Starts word guessing game
+* stone paper - Starts stone paper scissor game
+* coin price - Lists current coin price
+* coin investors - Lists investor\'s details
 '''
 
 def helpMessageMenu(update, context):
@@ -14,26 +20,24 @@ def helpMessageMenu(update, context):
     Hello {username}, I'm SuperRaptorBot
 
 ---------HELP MENU------------
-0. commands
-1. About me
-2. Source code
-3. random facts
-4. quit help
+1. Commands
+2. About me
+3. Source code
+0. Quit help
     '''
 
     textReceived : str = update.message.text
     if textReceived == "":
         update.message.reply_text(text)
-    elif textReceived == "0":
-        update.message.reply_text(listCommands())
     elif textReceived == "1":
+        update.message.reply_text(genCommandList())
+    elif textReceived == "2":
         State.pushState(username, aboutBotMenu)
         State.changeMenuNow(update, context)
-    elif textReceived == "2":
-        update.message.reply_text('To Do')
     elif textReceived == "3":
-        update.message.reply_text('To Do')
-    elif textReceived == "4":
+        update.message.reply_text('https://github.com/superRaptor911/Raptor-Telegram-Bot')
+        update.message.reply_text(text)
+    elif textReceived == "0":
         State.popState(username)
     else:
         update.message.reply_text('Invalid Option')
@@ -71,6 +75,10 @@ def evalInput(update) -> bool:
     textReceived : str = update.message.text
     username = update.message.from_user.username
 
+    if len(textReceived) > 30:
+        return False
+
+    textReceived = textReceived.lower()
     if textReceived in ["help", "bot help", "bh", "bot"]:
         State.pushState(username, helpMessageMenu)
         # Eat input
@@ -81,4 +89,7 @@ def evalInput(update) -> bool:
         # Eat input
         update.message.text = ""
         return True
+    elif textReceived in ["commands", "command"]:
+        update.message.reply_text(genCommandList())
+        return False
     return False
